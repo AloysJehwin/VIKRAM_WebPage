@@ -48,7 +48,7 @@ const MonitoringPage = () => {
   useEffect(() => {
     const interval = setInterval(async () => {
       try {
-        const response = await axios.get("https://56cb-27-60-164-139.ngrok-free.app/get-sensor-data");
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE}/get-sensor-data`);
         setSensorData(response.data);
       } catch (error) {
         console.error("Error fetching sensor data:", error);
