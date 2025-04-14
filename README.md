@@ -1,40 +1,113 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# 🔌 Sensor Data Dashboard
 
-## Getting Started
+This is a full-stack project that reads data from a sensor (mock or real), serves it via a Flask backend, and displays it in real-time on a Next.js dashboard. It also uploads the sensor data to MongoDB for storage.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 🧰 Tech Stack
+
+- **Frontend**: [Next.js](https://nextjs.org/)
+- **Backend**: [Flask](https://flask.palletsprojects.com/)
+- **Database**: [MongoDB](https://www.mongodb.com/)
+- **Communication**: REST API
+
+---
+
+## 📁 Project Structure
+
+```
+sensor-dashboard/
+├── backend/
+│   ├── app.py                 # Flask backend with sensor + MongoDB logic
+│   ├── requirements.txt       # Flask & MongoDB dependencies
+│
+├── frontend/
+│   ├── pages/
+│   │   └── index.tsx          # Next.js dashboard
+│   ├── utils/
+│   │   └── api.ts             # Helper for fetching/uploading data
+│   ├── .env.local             # Environment variables
+│   └── package.json
+│
+└── README.md
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## ⚙️ Environment Variables
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+### 🔐 `.env.local` (Frontend)
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+```env
+NEXT_PUBLIC_HTTP_URL=http://192.168.2.90:5000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+> Use your actual local IP or Flask hosting IP.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🚀 Getting Started
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+### ✅ 1. Clone the Repository
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+git clone https://github.com/AloysJehwin/VIKRAM_WebPage.git
+cd VIKRAM_WebPage
+```
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 🐍 2. Backend Setup (Flask)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+```bash
+cd backend
+python3 -m venv venv
+source venv/bin/activate      # On Windows: venv\Scripts\activate
+pip install -r requirements.txt
+python app.py
+```
+
+> Flask runs at `http://192.168.2.90:5000/sensor-data`
+
+---
+
+### ⚛️ 3. Frontend Setup (Next.js)
+
+```bash
+cd ../frontend
+npm install
+npm run dev
+```
+
+> Visit the dashboard at `http://localhost:3000`
+
+---
+
+## 🧫 Example Sensor JSON
+
+```json
+{
+  "temperature": 27.4,
+  "humidity": 65,
+  "light": true,
+  "timestamp": "2025-04-14T14:00:00Z"
+}
+```
+
+---
+
+## 📡 MongoDB Connection (Backend)
+
+Your `app.py` connects to MongoDB using:
+
+```python
+MONGO_URI = "mongodb+srv://<username>:<password>@cluster.mongodb.net/<dbname>"
+```
+
+Store this in an `.env` file or replace directly in code (not recommended for production).
+
+---
+
+## 📄 License
+
+MIT License © Aloys Jehwin
