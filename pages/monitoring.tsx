@@ -48,12 +48,20 @@ const MonitoringPage = () => {
   useEffect(() => {
     const interval = setInterval(async () => {
       try {
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_BASE}/get-sensor-data`);
+        const response = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_BASE}/sensor-data`,
+          {
+            headers: {
+              'ngrok-skip-browser-warning': 'true'
+            }
+          }
+        );
+        
         setSensorData(response.data);
       } catch (error) {
         console.error("Error fetching sensor data:", error);
       }
-    }, 3000);
+    }, 500);
 
     return () => clearInterval(interval);
   }, []);
